@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "964141041900",
+    "firebase_url": "https://sercy-2dce1.firebaseio.com",
+    "project_id": "sercy-2dce1",
+    "storage_bucket": "sercy-2dce1.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:964141041900:android:cd35261c3ccb2074327dc9",
+        "android_client_info": {
+          "package_name": "com.mohammedsreheen.sercy"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "964141041900-fjhmp5peh1mpk2odh67ja8l2v8itirh2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAwAGpiUZNM48lIFC7t_RpcYFiD5xbB7tA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "964141041900-fjhmp5peh1mpk2odh67ja8l2v8itirh2.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
