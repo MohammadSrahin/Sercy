@@ -9,6 +9,7 @@ class AuthManager {
 
   String getUID() {
     String uid = _auth.currentUser.uid;
-    return uid;
+    if (uid != null) return uid;
+    return 'null';
   }
 }

@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:sercy/screens/chat_screen.dart';
 import 'package:sercy/screens/intro_screen.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:sercy/screens/therapist_screen.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   runApp(MyApp());
 }
 
@@ -11,10 +15,11 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      initialRoute: IntroScreen.id,
+      initialRoute: TherapistScreen.id,
       routes: {
         ChatScreen.id: (context) => ChatScreen(),
         IntroScreen.id: (context) => IntroScreen(),
+        TherapistScreen.id: (context) => TherapistScreen()
       },
     );
   }

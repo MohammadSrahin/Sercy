@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:intro_slider/intro_slider.dart';
 import 'package:intro_slider/slide_object.dart';
 import 'package:sercy/screens/chat_screen.dart';
+import '../backend/auth.dart';
 
 class IntroScreen extends StatefulWidget {
   static const id = 'slide_screen';
@@ -11,9 +12,10 @@ class IntroScreen extends StatefulWidget {
 
 class _IntroScreenState extends State<IntroScreen> {
   List<Slide> slides = new List();
-
+  final AuthManager authManager = AuthManager();
   @override
   void initState() {
+    authManager.signInAnonymously();
     super.initState();
 
     slides.add(
