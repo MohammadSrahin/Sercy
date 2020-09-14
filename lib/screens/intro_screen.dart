@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:intro_slider/intro_slider.dart';
 import 'package:intro_slider/slide_object.dart';
 import 'package:sercy/screens/chat_screen.dart';
+import 'package:sercy/screens/welcome_screen.dart';
 
 class IntroScreen extends StatefulWidget {
   static const id = 'slide_screen';
@@ -19,14 +20,19 @@ class _IntroScreenState extends State<IntroScreen> {
     slides.add(
       new Slide(
         title: "Welcome to Sercy",
+        styleTitle: TextStyle(color: Color(0xff0078D7),
+
+        ),
         description: "Description",
-        backgroundColor: Color(0xfff5a623),
+        pathImage: 'images/tlogo6.png',
+        colorBegin: Color(0xffEFEFEF),
+        colorEnd: Color(0xff802892),
       ),
     );
   }
 
   void onDonePress() {
-    Navigator.pushNamed(context, ChatScreen.id);
+    Navigator.pushNamed(context, WelcomeScreen.id);
   }
 
   @override
