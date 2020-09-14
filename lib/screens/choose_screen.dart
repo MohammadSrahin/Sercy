@@ -14,17 +14,6 @@ class _ChooseScreenState extends State<ChooseScreen> {
   static const id = 'choose_screen';
   final AuthManager _auth = AuthManager();
 
-  signIn() async {
-    await _auth.signInAnonymously();
-  }
-
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    signIn();
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -49,6 +38,7 @@ class _ChooseScreenState extends State<ChooseScreen> {
             GestureDetector(
               onTap: () {
                 databaseManager.addUserToListener();
+                databaseManager.removeUserFromIdle();
                 Navigator.pushNamed(context, ChatScreen.id);
               },
               child: Container(
@@ -89,7 +79,7 @@ class _ChooseScreenState extends State<ChooseScreen> {
             GestureDetector(
               onTap: () {
                 databaseManager.addUserToVenter();
-
+                databaseManager.removeUserFromIdle();
                 Navigator.pushNamed(context, ChatScreen.id);
               },
               child: Container(

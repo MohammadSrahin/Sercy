@@ -1,5 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:sercy/screens/choose_screen.dart';
+import '../backend/auth.dart';
+import '../backend/database.dart';
 
 class WelcomeScreen extends StatefulWidget {
   static const id = 'welcome_screen';
@@ -9,10 +12,11 @@ class WelcomeScreen extends StatefulWidget {
 }
 
 class _WelcomeScreen extends State<WelcomeScreen> {
+  final AuthManager authManager = AuthManager();
+  final DatabaseManager databaseManager = DatabaseManager();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-
       backgroundColor: Colors.white,
       body: SafeArea(
         child: Padding(
@@ -46,98 +50,100 @@ class _WelcomeScreen extends State<WelcomeScreen> {
               SizedBox(
                 height: 70.0,
               ),
-              Container(
-                padding: EdgeInsets.all(10),
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(30),
-                    border: Border.all(color: Colors.grey[300])),
-
-                child: Row(
-                  children: <Widget>[
-                    Container(
-
-                      decoration: BoxDecoration(
-                        color: Color(0xffe67096),
-                        borderRadius: BorderRadius.circular(20),
+              GestureDetector(
+                onTap: () {
+                  authManager.signInAnonymously();
+                  databaseManager.addUserToIdle();
+                  Navigator.pushNamed(context, ChooseScreen.id);
+                },
+                child: Container(
+                  padding: EdgeInsets.all(10),
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(30),
+                      border: Border.all(color: Colors.grey[300])),
+                  child: Row(
+                    children: <Widget>[
+                      Container(
+                        decoration: BoxDecoration(
+                          color: Color(0xffe67096),
+                          borderRadius: BorderRadius.circular(20),
+                        ),
+                        child: Image(
+                          image: AssetImage('images/dice2.png'),
+                          height: 70,
+                        ),
                       ),
-                      child: Image(
-                        image: AssetImage('images/dice2.png'),
-                        height: 70,
+                      SizedBox(
+                        width: 10,
                       ),
-                    ),
-
-
-                    SizedBox(
-                      width: 10,
-                    ),
-
-
-                    Column(
-                      children: <Widget>[
-                        Text(
-                          'Random Chat',
-                          style: TextStyle(
-                            fontSize: 25,
-                            fontWeight: FontWeight.bold,
+                      Column(
+                        children: <Widget>[
+                          Text(
+                            'Random Chat',
+                            style: TextStyle(
+                              fontSize: 25,
+                              fontWeight: FontWeight.bold,
+                            ),
                           ),
-                        ),
-                        SizedBox(
-                          height: 10,
-                        ),
-                        Text('will connect you with a \nrandom person to talk with',style:
-                        TextStyle(fontStyle: FontStyle.italic),)
-                      ],
-                    )
-                  ],
+                          SizedBox(
+                            height: 10,
+                          ),
+                          Text(
+                            'will connect you with a \nrandom person to talk with',
+                            style: TextStyle(fontStyle: FontStyle.italic),
+                          )
+                        ],
+                      )
+                    ],
+                  ),
                 ),
               ),
-              SizedBox(height: 35,),
-
-              Container(
-                padding: EdgeInsets.all(10),
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(30),
-                    border: Border.all(color: Colors.grey[300])),
-
-                child: Row(
-                  children: <Widget>[
-                    Container(
-
-                      decoration: BoxDecoration(
-                        color: Color(0xffe67096),
-                        borderRadius: BorderRadius.circular(20),
+              SizedBox(
+                height: 35,
+              ),
+              GestureDetector(
+                onTap: () {},
+                child: Container(
+                  padding: EdgeInsets.all(10),
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(30),
+                      border: Border.all(color: Colors.grey[300])),
+                  child: Row(
+                    children: <Widget>[
+                      Container(
+                        decoration: BoxDecoration(
+                          color: Color(0xffe67096),
+                          borderRadius: BorderRadius.circular(20),
+                        ),
+                        child: Image(
+                          image: AssetImage('images/dice2.png'),
+                          height: 70,
+                        ),
                       ),
-                      child: Image(
-                        image: AssetImage('images/dice2.png'),
-                        height: 70,
+                      SizedBox(
+                        width: 10,
                       ),
-                    ),
-
-
-                    SizedBox(
-                      width: 10,
-                    ),
-
-
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        Text(
-                          'Therapist',
-                          style: TextStyle(
-                            fontSize: 25,
-                            fontWeight: FontWeight.bold,
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+                          Text(
+                            'Therapist',
+                            style: TextStyle(
+                              fontSize: 25,
+                              fontWeight: FontWeight.bold,
+                            ),
                           ),
-                        ),
-                        SizedBox(
-                          height: 5,
-                        ),
-                        Text('will connect you with a \nprofessional therapist to \ntalk with anonymously',style:
-                        TextStyle(fontStyle: FontStyle.italic,
-                        fontSize: 13))
-                      ],
-                    )
-                  ],
+                          SizedBox(
+                            height: 5,
+                          ),
+                          Text(
+                              'will connect you with a \nprofessional therapist to \ntalk with anonymously',
+                              style: TextStyle(
+                                  fontStyle: FontStyle.italic, fontSize: 13))
+                        ],
+                      )
+                    ],
+                  ),
                 ),
               )
             ],
