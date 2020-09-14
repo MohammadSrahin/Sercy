@@ -35,12 +35,8 @@ class _ChooseScreenState extends State<ChooseScreen> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Expanded(
-              child: Text(
-                "Choose a\nTherapist",
-                style: TextStyle(
-                    fontSize: 40,
-                    color: Colors.black,
-                    fontWeight: FontWeight.w600),
+              child: Image(
+               image: AssetImage('images/tlogo6.png'),
               ),
             ),
             SizedBox(

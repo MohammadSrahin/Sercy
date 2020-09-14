@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
+import 'package:animated_text_kit/animated_text_kit.dart';
 class WelcomeScreen extends StatefulWidget {
   static const id = 'welcome_screen';
 
@@ -24,22 +24,27 @@ class _WelcomeScreen extends State<WelcomeScreen> {
                 //crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: <Widget>[
-                  Container(
-                    child: Expanded(
+                  Hero(
+                    tag: 'logo',
+                    child: Container(
                       child: Image(
                         image: AssetImage('images/tlogo6.png'),
+                        height: 150,
                       ),
                     ),
                   ),
-                  Expanded(
-                    child: Text(
-                      'Sercy',
-                      style: TextStyle(
-                        fontSize: 50,
-                        fontWeight: FontWeight.w500,
-                        letterSpacing: 3,
+                  SizedBox(
+                    width: 150.0,
+                    child: TyperAnimatedTextKit(
+                      text:["Sercy"],
+                      textStyle: TextStyle(
+                        fontSize: 40.0,
+                        fontFamily: "Ange"
                       ),
+                      textAlign: TextAlign.start,
+                      alignment: AlignmentDirectional.bottomStart,
                     ),
+
                   )
                 ],
               ),
@@ -47,54 +52,8 @@ class _WelcomeScreen extends State<WelcomeScreen> {
                 height: 70.0,
               ),
               Container(
-                padding: EdgeInsets.all(10),
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(30),
-                    border: Border.all(color: Colors.grey[300])),
 
-                child: Row(
-                  children: <Widget>[
-                    Container(
-
-                      decoration: BoxDecoration(
-                        color: Color(0xffe67096),
-                        borderRadius: BorderRadius.circular(20),
-                      ),
-                      child: Image(
-                        image: AssetImage('images/dice2.png'),
-                        height: 70,
-                      ),
-                    ),
-
-
-                    SizedBox(
-                      width: 10,
-                    ),
-
-
-                    Column(
-                      children: <Widget>[
-                        Text(
-                          'Random Chat',
-                          style: TextStyle(
-                            fontSize: 25,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                        SizedBox(
-                          height: 10,
-                        ),
-                        Text('will connect you with a \nrandom person to talk with',style:
-                        TextStyle(fontStyle: FontStyle.italic),)
-                      ],
-                    )
-                  ],
-                ),
-              ),
-              SizedBox(height: 35,),
-
-              Container(
-                padding: EdgeInsets.all(10),
+                padding: EdgeInsets.all(23),
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(30),
                     border: Border.all(color: Colors.grey[300])),
@@ -123,6 +82,54 @@ class _WelcomeScreen extends State<WelcomeScreen> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
                         Text(
+                          'Random Chat',
+                          style: TextStyle(
+                            fontSize: 25,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        Text('will connect you with a \nrandom person to talk with',style:
+                        TextStyle(fontStyle: FontStyle.italic),)
+                      ],
+                    )
+                  ],
+                ),
+              ),
+              SizedBox(height: 35,),
+
+              Container(
+                padding: EdgeInsets.all(23),
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(30),
+                    border: Border.all(color: Colors.grey[300])),
+
+                child: Row(
+                  children: <Widget>[
+                    Container(
+
+                      decoration: BoxDecoration(
+                        color: Color(0xffFFC61B),
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                      child: Image(
+                        image: AssetImage('images/therapist.png'),
+                        height: 70,
+                      ),
+                    ),
+
+
+                    SizedBox(
+                      width: 10,
+                    ),
+
+
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        Text(
                           'Therapist',
                           style: TextStyle(
                             fontSize: 25,
@@ -132,7 +139,7 @@ class _WelcomeScreen extends State<WelcomeScreen> {
                         SizedBox(
                           height: 5,
                         ),
-                        Text('will connect you with a \nprofessional therapist to \ntalk with anonymously',style:
+                        Text('connect with a professional\ntherapist to talk with\nnonymously',style:
                         TextStyle(fontStyle: FontStyle.italic,
                         fontSize: 13))
                       ],
