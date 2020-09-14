@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:animated_text_kit/animated_text_kit.dart';
+import 'package:sercy/backend/auth.dart';
+import 'package:sercy/backend/database.dart';
 class WelcomeScreen extends StatefulWidget {
   static const id = 'welcome_screen';
 
@@ -9,6 +11,8 @@ class WelcomeScreen extends StatefulWidget {
 }
 
 class _WelcomeScreen extends State<WelcomeScreen> {
+  final AuthManager authManager = AuthManager();
+  final DatabaseManager databaseManager = DatabaseManager();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -34,15 +38,17 @@ class _WelcomeScreen extends State<WelcomeScreen> {
                     ),
                   ),
                   SizedBox(
-                    width: 150.0,
+                    width: 120.0,
                     child: TyperAnimatedTextKit(
                       text:["Sercy"],
                       textStyle: TextStyle(
-                        fontSize: 40.0,
-                        fontFamily: "Ange"
+                        fontSize: 50.0,
+                        fontFamily: "Ange",
+                        fontWeight: FontWeight.w600,
                       ),
                       textAlign: TextAlign.start,
                       alignment: AlignmentDirectional.bottomStart,
+
                     ),
 
                   )
@@ -60,15 +66,21 @@ class _WelcomeScreen extends State<WelcomeScreen> {
 
                 child: Row(
                   children: <Widget>[
-                    Container(
+                    GestureDetector(
+                      onTap: (){
+                        authManager.signInAnonymously();
+                        databaseManager.addUserToIdle();
+                      },
+                      child: Container(
 
-                      decoration: BoxDecoration(
-                        color: Color(0xffe67096),
-                        borderRadius: BorderRadius.circular(20),
-                      ),
-                      child: Image(
-                        image: AssetImage('images/dice2.png'),
-                        height: 70,
+                        decoration: BoxDecoration(
+                          color: Color(0xffe67096),
+                          borderRadius: BorderRadius.circular(20),
+                        ),
+                        child: Image(
+                          image: AssetImage('images/dice2.png'),
+                          height: 70,
+                        ),
                       ),
                     ),
 
@@ -108,15 +120,18 @@ class _WelcomeScreen extends State<WelcomeScreen> {
 
                 child: Row(
                   children: <Widget>[
-                    Container(
+                    GestureDetector(
+                      onTap: (){},
+                      child: Container(
 
-                      decoration: BoxDecoration(
-                        color: Color(0xffFFC61B),
-                        borderRadius: BorderRadius.circular(20),
-                      ),
-                      child: Image(
-                        image: AssetImage('images/therapist.png'),
-                        height: 70,
+                        decoration: BoxDecoration(
+                          color: Color(0xffFFC61B),
+                          borderRadius: BorderRadius.circular(20),
+                        ),
+                        child: Image(
+                          image: AssetImage('images/therapist.png'),
+                          height: 70,
+                        ),
                       ),
                     ),
 

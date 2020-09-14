@@ -15,12 +15,22 @@ class _ChatScreenState extends State<ChatScreen> {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   final AuthManager authManager = AuthManager();
   TextEditingController controller = TextEditingController();
-  String chatRoom;
-  String messageText;
+  var chatRoom;
+  var messageText;
 
   chatSetUp() async {
     chatRoom = await databaseManager.createAChatRoomID();
+    print(chatRoom);
+    databaseManager.getUserRole() == 'listener'
+        ? databaseManager.removeUserFromListener()
+        : databaseManager.removeUserFromVenter();
     databaseManager.addUserToActive();
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    chatSetUp();
   }
 
   @override
@@ -48,36 +58,36 @@ class _ChatScreenState extends State<ChatScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.end,
           children: [
-            // StreamBuilder<QuerySnapshot>(
-            //     stream: _firestore
-            //         .collection('Chatrooms')
-            //         .doc('$chatRoom')
-            //         .collection('messages')
-            //         .orderBy('timestamp', descending: true)
-            //         .snapshots(),
-            //     builder: (context, snapshot) {
-            //       if (snapshot.connectionState == ConnectionState.waiting) {
-            //         return Center(
-            //           child: CircularProgressIndicator(),
-            //         );
-            // //       }
-            //       List<QueryDocumentSnapshot> messages = snapshot.data.docs;
-            //
-            //       return Expanded(
-            //         child: ListView.builder(
-            //           itemCount: messages.length,
-            //           itemBuilder: (context, index) {
-            //             return Text(messages[index].data()['text']);
-            //           },
-            //         ),
-            //       );
-            //     }),
+            StreamBuilder<QuerySnapshot>(
+                stream: _firestore
+                    .collection('Chatrooms')
+                    .doc('$chatRoom')
+                    .collection('messages')
+                    .orderBy('timestamp', descending: true)
+                    .snapshots(),
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return Center(
+                      child: CircularProgressIndicator(),
+                    );
+                  }
+                  final messages = snapshot.data.docs;
+                  List<MessageBubble> messageWidgets = [];
+                  for (var message in messages) {
+                    final messageText = message.data()['text'];
+                    final messageSender = message.data()['user'];
 
-            Expanded(child: Container()),
-            MessageBubble(
-              messageText: messageText,
-              sender: "user1",
-            ),
+                    final currentUser = authManager.getUID();
+                    messageWidgets.add(MessageBubble(
+                      sender: messageSender,
+                      messageText: messageText,
+                      isMe: currentUser == messageSender,
+                    ));
+                  }
+
+                  return Expanded(
+                      child: ListView(reverse: true, children: messageWidgets));
+                }),
             Row(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
@@ -108,10 +118,15 @@ class _ChatScreenState extends State<ChatScreen> {
                   child: Icon(Icons.send),
                   onTap: () {
                     controller.clear();
-                    MessageBubble(
-                      messageText: messageText,
-                      sender: "user1",
-                    );
+                    _firestore
+                        .collection('Chatrooms')
+                        .doc('$chatRoom')
+                        .collection('messages')
+                        .add({
+                      'user': authManager.getUID(),
+                      'text': messageText,
+                      'timestamp': Timestamp.now(),
+                    });
                   },
                 ),
               ],

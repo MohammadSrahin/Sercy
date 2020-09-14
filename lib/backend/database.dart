@@ -26,22 +26,23 @@ class DatabaseManager {
         .get()
         .then((snapshot) =>
             snapshot.exists ? userRole = 'listener' : userRole = 'venter');
+    print('userRole = ' + userRole);
     return userRole;
   }
 
-  createAChatRoomID() {
-    String secondUser;
-    String userRole = getUserRole();
+  createAChatRoomID() async {
+    var secondUser;
+    var userRole = await getUserRole();
 
     ///We are looking to make the chat room ID look in this format:
     ///'listenerUID_venterUID' so if the current user role is 'listener', then
     ///we need to get a random venter, and make the chat room ID look like this:
     ///'currentUserUID_secondUserUID', and the opposite.
     if (userRole == 'listener') {
-      secondUser = getARandomVenter();
+      secondUser = await getARandomVenter();
       return "${authManager.getUID()}_$secondUser";
     } else if (userRole == 'venter') {
-      secondUser = getARandomListener();
+      secondUser = await getARandomListener();
       return "${authManager.getUID()}_$secondUser";
     }
   }
