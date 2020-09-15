@@ -2,6 +2,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:sercy/screens/chat_screen.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'sizes_helpers.dart';
 
 class TherapistScreen extends StatelessWidget {
   static const id = 'therapist_screen';
@@ -18,7 +19,8 @@ class TherapistScreen extends StatelessWidget {
               child: Text(
                 "Choose a\nTherapist",
                 style: TextStyle(
-                    fontSize: 40,
+                  fontSize: displayWidth(context)*0.12,
+                  //fontSize: 40,
                     color: Colors.black,
                     fontWeight: FontWeight.w600),
               ),
