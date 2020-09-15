@@ -150,8 +150,7 @@ class TherapistScreen extends StatelessWidget {
                 style: new TextStyle(color: Colors.blue),
                 recognizer: TapGestureRecognizer()
                   ..onTap = () {
-                    launch(
-                        'https://docs.flutter.io/flutter/services/UrlLauncher-class.html');
+                    launch('https://www.amazonteckathon.com/');
                   },
               )
             ]))

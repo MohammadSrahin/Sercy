@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:sercy/backend/auth.dart';
 import 'package:sercy/backend/database.dart';
-import 'package:sercy/screens/chat_screen.dart';
 import 'package:sercy/screens/choose_screen.dart';
 import 'package:sercy/screens/therapist_screen.dart';
 import 'sizes_helpers.dart';

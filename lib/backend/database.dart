@@ -20,12 +20,12 @@ class DatabaseManager {
     ///name of the document, as in: if the UID is 1234abc then the database would
     ///look like: 'listener_users'->'1234abc'->"'user': '1234abc'"
     ///               ^collection    ^document    ^data inside the document
-    await _firestore
+    final snapshot = await _firestore
         .collection('listener_users')
         .doc(authManager.getUID())
-        .get()
-        .then((snapshot) =>
-            snapshot.exists ? userRole = 'listener' : userRole = 'venter');
+        .get();
+
+    snapshot.exists ? userRole = 'listener' : userRole = 'venter';
     print('userRole = ' + userRole);
     return userRole;
   }
@@ -33,18 +33,22 @@ class DatabaseManager {
   createAChatRoomID() async {
     var secondUser;
     var userRole = await getUserRole();
+    String id;
 
     ///We are looking to make the chat room ID look in this format:
     ///'listenerUID_venterUID' so if the current user role is 'listener', then
     ///we need to get a random venter, and make the chat room ID look like this:
     ///'currentUserUID_secondUserUID', and the opposite.
+
     if (userRole == 'listener') {
       secondUser = await getARandomVenter();
-      return "${authManager.getUID()}_$secondUser";
+      id = "${authManager.getUID()}_$secondUser";
     } else if (userRole == 'venter') {
       secondUser = await getARandomListener();
-      return "${authManager.getUID()}_$secondUser";
+      id = "${secondUser}_${authManager.getUID()}";
     }
+    if (secondUser == null) id = 'noUsers';
+    return id;
   }
 
   ///These functions add the current user to their respective group.
@@ -79,7 +83,7 @@ class DatabaseManager {
   ///These functions remove the current user from their respective group.
   removeUserFromListener() async {
     await _firestore
-        .collection('listener_users')
+        .collection("listener_users")
         .doc(authManager.getUID())
         .delete();
   }
@@ -117,10 +121,13 @@ class DatabaseManager {
     ///chooses a random index between 0 and the length of the list 'docs'.
     ///Therefore, it's a random document/user from the overall documents in the
     ///collection.
-    DocumentSnapshot randomDocument = docs[Random().nextInt(docs.length)];
-    return randomDocument.id;
+    print("docs.length: ${docs.length}");
+    if (docs.length != 0) {
+      DocumentSnapshot randomDocument = docs[Random().nextInt(docs.length)];
+      if (randomDocument != null) return randomDocument.id;
 
-    ///return the user UID.
+      ///return the user UID.
+    }
   }
 
   getARandomListener() async {
@@ -135,9 +142,11 @@ class DatabaseManager {
     ///chooses a random index between 0 and the length of the list 'docs'.
     ///Therefore, it's a random document/user from the overall documents in the
     ///collection.
-    DocumentSnapshot randomDocument = docs[Random().nextInt(docs.length)];
-    return randomDocument.id;
+    if (docs.length > 0) {
+      DocumentSnapshot randomDocument = docs[Random().nextInt(docs.length)];
+      if (randomDocument != null) return randomDocument.id;
 
-    ///return the user UID.
+      ///return the user UID.
+    }
   }
 }

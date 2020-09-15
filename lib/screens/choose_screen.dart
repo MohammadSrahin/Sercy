@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sercy/backend/auth.dart';
+import 'package:sercy/screens/searching_screen.dart';
 import 'chat_screen.dart';
 import '../backend/database.dart';
 import 'sizes_helpers.dart';
@@ -43,7 +44,7 @@ class _ChooseScreenState extends State<ChooseScreen> {
               onTap: () {
                 databaseManager.addUserToListener();
                 databaseManager.removeUserFromIdle();
-                Navigator.pushNamed(context, ChatScreen.id);
+                Navigator.pushNamed(context, SearchingScreen.id);
               },
               child: Container(
                 padding: EdgeInsets.all(20),
@@ -99,7 +100,7 @@ class _ChooseScreenState extends State<ChooseScreen> {
               onTap: () {
                 databaseManager.addUserToVenter();
                 databaseManager.removeUserFromIdle();
-                Navigator.pushNamed(context, ChatScreen.id);
+                Navigator.pushNamed(context, SearchingScreen.id);
               },
               child: Container(
                 padding: EdgeInsets.all(20),
