@@ -94,9 +94,9 @@ class _WelcomeScreen extends State<WelcomeScreen> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
                           Text(
-                            'Random Chat',
+                            'Anonymous Chat',
                             style: TextStyle(
-                              fontSize: displayWidth(context) * 0.07,
+                              fontSize: displayWidth(context) * 0.055,
                               // fontSize: 25,
                               fontWeight: FontWeight.bold,
                             ),
@@ -152,7 +152,7 @@ class _WelcomeScreen extends State<WelcomeScreen> {
                           Text(
                             'Therapist',
                             style: TextStyle(
-                              fontSize: displayWidth(context) * 0.07,
+                              fontSize: displayWidth(context) * 0.055,
                               //fontSize: 25,
                               fontWeight: FontWeight.bold,
                             ),

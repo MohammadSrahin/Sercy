@@ -67,11 +67,11 @@ class _ChooseScreenState extends State<ChooseScreen> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          "Listener / Counselor",
+                          "Listener",
                           softWrap: true,
                           style: TextStyle(
                               // fontSize: 25,
-                              fontSize: displayWidth(context) * 0.05,
+                              fontSize: displayWidth(context) * 0.055,
                               fontWeight: FontWeight.bold),
                         ),
                         SizedBox(
@@ -126,7 +126,7 @@ class _ChooseScreenState extends State<ChooseScreen> {
                           "Venter",
                           softWrap: true,
                           style: TextStyle(
-                              fontSize: displayWidth(context) * 0.07,
+                              fontSize: displayWidth(context) * 0.055,
                               fontWeight: FontWeight.bold),
                         ),
                         SizedBox(

@@ -27,20 +27,25 @@ class TherapistListTile extends StatelessWidget {
               backgroundColor: Colors.transparent,
             ),
             SizedBox(
-              width: 20,
+             width:displayWidth(context)*0.055,
+             // width: 20,
             ),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  name,
-                  softWrap: true,
-                  style: TextStyle(
-                      fontSize: displayWidth(context) * 0.0555,
-                      fontWeight: FontWeight.bold),
-                ),
-                Text(description),
-              ],
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    name,
+                    softWrap: true,
+                    style: TextStyle(
+                        fontSize: displayWidth(context) * 0.0555,
+                        fontWeight: FontWeight.bold),
+                  ),
+                  SizedBox(height: displayHeight(context) * 0.005,),
+                  Text(description,softWrap: true,style: TextStyle(fontSize: displayWidth(context) * 0.038,
+                 ),),
+                ],
+              ),
             ),
           ],
         ),

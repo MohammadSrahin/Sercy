@@ -70,28 +70,25 @@ class TherapistScreen extends StatelessWidget {
                       colors: <Color>[Color(0xff862992), Color(0xffEEAAA56)]),
                 ),
                 child: RaisedButton(
+                  color: Colors.black,
                   onPressed: () {
                     launch(
                         'https://docs.google.com/forms/d/1ngMFZkXB4sIc-mrRGm9zCrwj5M6eT6AKufm0FTV6K2s/edit');
                   },
                   child: Ink(
-                    decoration: BoxDecoration(
-                      gradient: LinearGradient(colors: <Color>[
-                        Color(0xff862992),
-                        Color(0xffEEAAA56)
-                      ]),
-                    ),
-                    child: Container(
-                      child: RichText(
-                          text: TextSpan(children: [
-                        TextSpan(
-                          text:
-                              "Want to join Sercy as a Therapist? Click here!",
-                          style:
-                              new TextStyle(color: Colors.white, fontSize: 16),
-                        )
-                      ])),
-                    ),
+
+                    child: RichText(
+                        text: TextSpan(children: [
+                      TextSpan(
+                        text:
+                            "Want to join Sercy as a Therapist? Click here!",
+                        style:
+                            new TextStyle(color: Colors.white,
+
+                                fontSize: displayWidth(context) * 0.04),
+                              //fontSize: 16),
+                      )
+                    ])),
                   ),
                   elevation: 5,
                 ),

@@ -18,19 +18,21 @@ class _IntroScreenState extends State<IntroScreen> {
     authManager.signInAnonymously();
     super.initState();
 
+
     slides.add(
       new Slide(
         title: "Welcome to Sercy",
         styleTitle: TextStyle(
-          fontSize: 30,
-          fontWeight: FontWeight.w600,
+          fontSize: 25,
+          fontWeight: FontWeight.w800,
           //color: Colors.red[500],
-          color: Color(0xFFE4644C),
-          fontFamily: 'Raleway',
-          letterSpacing: 5,
+          color: Colors.black,
+          fontFamily: 'RobotoMono',
+          letterSpacing: 3,
         ),
         description:
-            "Sercy is an online \"talking therapy\" app where people can safely explore their difficulties with other people safely.",
+        "Sercy is an online \"talking therapy\" app where people can safely explore their difficulties with other people in an anonymous way",
+        styleDescription:TextStyle(color: Colors.white, fontSize: 20.0, fontStyle: FontStyle.italic,fontWeight: FontWeight.w400),
         pathImage: 'images/tlogo6.png',
         colorBegin: Color(0xffEFEFEF),
         colorEnd: Color(0xff802892),
@@ -38,20 +40,40 @@ class _IntroScreenState extends State<IntroScreen> {
     );
     slides.add(
       new Slide(
-        title: "Welcome to Sercy",
+        title: "Therapist",
         styleTitle: TextStyle(
-          fontSize: 30,
-          fontWeight: FontWeight.w600,
+          fontSize: 25,
+          fontWeight: FontWeight.w800,
           //color: Colors.red[500],
-          color: Color(0xFFE4644C),
-          fontFamily: 'Raleway',
-          letterSpacing: 5,
+          color: Colors.black,
+          fontFamily: 'RobotoMono',
+          letterSpacing: 3,
         ),
         description:
-            "Sercy is an online \"talking therapy\" app where people can safely explore their difficulties with other people safely.",
-        pathImage: 'images/tlogo6.png',
+            "Sercy has professional therapist that can advise you",
+        styleDescription:TextStyle(color: Colors.white, fontSize: 20.0, fontStyle: FontStyle.italic,fontWeight: FontWeight.w400),
+        pathImage: 'images/therapist.png',
         colorBegin: Color(0xffEFEFEF),
-        colorEnd: Color(0xff802892),
+        colorEnd: Color(0xffD48B07),
+      ),
+    );
+    slides.add(
+      new Slide(
+        title: "Anonymous Chat",
+        styleTitle: TextStyle(
+          fontSize: 25,
+          fontWeight: FontWeight.w800,
+          //color: Colors.red[500],
+          color: Colors.black,
+          fontFamily: 'RobotoMono',
+          letterSpacing: 3,
+        ),
+        description:
+        "Sercy enables you to communicate with a random person anonymously",
+        styleDescription:TextStyle(color: Colors.white, fontSize: 20.0, fontStyle: FontStyle.italic,fontWeight: FontWeight.w400),
+        pathImage: 'images/dice.png',
+        colorBegin: Color(0xffEFEFEF),
+        colorEnd: Color(0xff2899c9),
       ),
     );
   }
@@ -68,3 +90,4 @@ class _IntroScreenState extends State<IntroScreen> {
     );
   }
 }
+
