@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sercy/screens/sizes_helpers.dart';
 //                  'https://www.iconfinder.com/data/icons/occupation-and-people-avatar-vol-1-1/128/Woman_avatar_assistant_young_people_female_therapist-512.png'),
 
 class TherapistListTile extends StatelessWidget {
@@ -34,7 +35,9 @@ class TherapistListTile extends StatelessWidget {
                 Text(
                   name,
                   softWrap: true,
-                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                  style: TextStyle(
+                      fontSize: displayWidth(context) * 0.0555,
+                      fontWeight: FontWeight.bold),
                 ),
                 Text(description),
               ],

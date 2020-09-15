@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:sercy/backend/auth.dart';
 import 'package:sercy/screens/choose_screen.dart';
+import 'package:sercy/screens/welcome_screen.dart';
 import 'package:sercy/system_message_layout.dart';
 import '../backend/database.dart';
 import '../message_layout.dart';
@@ -114,7 +115,7 @@ class _ChatScreenState extends State<ChatScreen> {
                               .sendDisconnectedMessage(widget.chatRoom);
                           databaseManager.removeUserFromActive();
                           databaseManager.addUserToIdle();
-                          Navigator.popAndPushNamed(context, ChooseScreen.id);
+                          Navigator.popAndPushNamed(context, WelcomeScreen.id);
                         },
                       ),
                     ],
