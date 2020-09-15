@@ -117,6 +117,7 @@ class DatabaseManager {
     Map<String, String> systemMessage = {
       'text': 'The person you were talking to disconnected.',
       'user': 'System',
+      'timestamp': Timestamp.now().toString(),
     };
     await _firestore
         .collection('Chatrooms')

@@ -12,6 +12,13 @@ class ChooseScreen extends StatefulWidget {
 class _ChooseScreenState extends State<ChooseScreen> {
   final DatabaseManager databaseManager = DatabaseManager();
 
+  clearRoles() async {
+    String role = await databaseManager.getUserRole();
+    role == 'listener'
+        ? await databaseManager.removeUserFromListener()
+        : await databaseManager.removeUserFromVenter();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
