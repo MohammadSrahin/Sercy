@@ -9,22 +9,19 @@ class SystemMessageBubble extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(15.0),
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.end,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Material(
-            borderRadius: BorderRadius.only(
-                bottomLeft: Radius.circular(30.0),
-                bottomRight: Radius.circular(30.0),
-                topLeft: Radius.circular(30.0)),
+            borderRadius: BorderRadius.all(Radius.circular(30.0)),
             child: Padding(
               padding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
               child: Text(
                 messageText,
-                style: TextStyle(fontSize: 17, color: Colors.black),
+                style: TextStyle(fontSize: 17, color: Colors.white),
               ),
             ),
             elevation: 3,
-            color: Colors.white,
+            color: Colors.black,
           ),
         ],
       ),

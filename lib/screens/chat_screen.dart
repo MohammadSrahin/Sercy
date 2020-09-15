@@ -1,6 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:sercy/backend/auth.dart';
 import 'package:sercy/screens/choose_screen.dart';
 import 'package:sercy/screens/welcome_screen.dart';
@@ -22,8 +21,9 @@ class _ChatScreenState extends State<ChatScreen> {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   final AuthManager authManager = AuthManager();
   TextEditingController controller = TextEditingController();
+  bool _enableTextField;
   var messageText;
-  bool isConnected = true;
+  bool isConnected;
 
   setUp() async {
     print("ChatScreen ChatRoom: " + widget.chatRoom.toString());
@@ -49,11 +49,18 @@ class _ChatScreenState extends State<ChatScreen> {
     //Navigator.popAndPushNamed(context, ChatScreen.id);
   }
 
+ void disableTextField() async {
+    setState(() {
+      _enableTextField = false;
+    });
+  }
+
   @override
   void initState() {
     super.initState();
     setUp();
     isConnected = true;
+    _enableTextField = true;
   }
 
   @override
@@ -152,14 +159,13 @@ class _ChatScreenState extends State<ChatScreen> {
                     final messageText = message.data()["text"];
                     final messageSender = message.data()["user"];
 
-                    if (isConnected == false) {
-                      final currentUser = authManager.getUID();
-                      final messageWidget = MessageBubble(
-                        sender: 'System',
-                        messageText: 'Disconnected',
-                        isMe: currentUser == messageSender,
+                    if (messageSender == 'System') {
+                      disableTextField();
+                      var systemMessage = SystemMessageBubble(
+                        sender: messageSender,
+                        messageText: messageText,
                       );
-                      messageWidgets.add(messageWidget);
+                      messageWidgets.add(systemMessage);
                     } else {
                       final currentUser = authManager.getUID();
                       final messageWidget = MessageBubble(
@@ -170,6 +176,7 @@ class _ChatScreenState extends State<ChatScreen> {
                       messageWidgets.add(messageWidget);
                     }
                   }
+
                   return Expanded(
                     child: ListView(
                       reverse: true,
@@ -187,6 +194,7 @@ class _ChatScreenState extends State<ChatScreen> {
                         primaryColorDark: Colors.black87,
                         hintColor: Colors.black87),
                     child: TextField(
+                      enabled: _enableTextField,
                       onChanged: (value) {
                         messageText = value;
                       },
@@ -204,18 +212,23 @@ class _ChatScreenState extends State<ChatScreen> {
                   width: 10,
                 ),
                 GestureDetector(
-                  child: Icon(Icons.send),
+                  child: Icon(
+                    Icons.send,
+                  ),
                   onTap: () {
-                    controller.clear();
-                    _firestore
-                        .collection('Chatrooms')
-                        .doc('${widget.chatRoom}')
-                        .collection('messages')
-                        .add({
-                      'user': authManager.getUID(),
-                      'text': messageText,
-                      'timestamp': Timestamp.now(),
-                    });
+                    if (controller.value.text != '') {
+                      print(controller.value.text);
+                      controller.clear();
+                      _firestore
+                          .collection('Chatrooms')
+                          .doc('${widget.chatRoom}')
+                          .collection('messages')
+                          .add({
+                        'user': authManager.getUID(),
+                        'text': messageText,
+                        'timestamp': Timestamp.now(),
+                      });
+                    }
                   },
                 ),
               ],
