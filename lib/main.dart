@@ -5,9 +5,12 @@ import 'package:sercy/screens/intro_screen.dart';
 import 'package:sercy/screens/welcome_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:sercy/screens/therapist_screen.dart';
+import 'package:flutter/services.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  //Device orientation always up.
+  await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
   await Firebase.initializeApp();
   runApp(MyApp());
 }
@@ -21,7 +24,7 @@ class MyApp extends StatelessWidget {
       routes: {
         ChatScreen.id: (context) => ChatScreen(),
         IntroScreen.id: (context) => IntroScreen(),
-        WelcomeScreen.id:(context) =>WelcomeScreen(),
+        WelcomeScreen.id: (context) => WelcomeScreen(),
         TherapistScreen.id: (context) => TherapistScreen(),
         ChooseScreen.id: (context) => ChooseScreen(),
       },

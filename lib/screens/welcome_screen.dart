@@ -3,6 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:sercy/backend/auth.dart';
 import 'package:sercy/backend/database.dart';
+import 'package:sercy/screens/chat_screen.dart';
+import 'package:sercy/screens/choose_screen.dart';
+import 'package:sercy/screens/therapist_screen.dart';
+import 'sizes_helpers.dart';
+
 class WelcomeScreen extends StatefulWidget {
   static const id = 'welcome_screen';
 
@@ -16,7 +21,6 @@ class _WelcomeScreen extends State<WelcomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-
       backgroundColor: Colors.white,
       body: SafeArea(
         child: Padding(
@@ -37,129 +41,138 @@ class _WelcomeScreen extends State<WelcomeScreen> {
                       ),
                     ),
                   ),
-                  SizedBox(
-                    width: 120.0,
-                    child: TyperAnimatedTextKit(
-                      text:["Sercy"],
+                  SizedBox(width: 4),
+                  Expanded(
+                    child: TypewriterAnimatedTextKit(
+                      duration: Duration(seconds: 5),
+                      // pause: Duration(seconds: 1),
+                      text: ["Sercy"],
                       textStyle: TextStyle(
-                        fontSize: 50.0,
-                        fontFamily: "Ange",
-                        fontWeight: FontWeight.w600,
+                        fontSize: displayWidth(context) * 0.125,
+                        //fontSize: 45.0,
+                        fontFamily: "An",
+                        fontWeight: FontWeight.w700,
                       ),
                       textAlign: TextAlign.start,
                       alignment: AlignmentDirectional.bottomStart,
-
                     ),
-
                   )
                 ],
               ),
               SizedBox(
-                height: 70.0,
+                height: displayHeight(context) * 0.095,
+                //height: 70.0,
               ),
               Container(
-
-                padding: EdgeInsets.all(23),
+                padding: EdgeInsets.all(20),
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(30),
                     border: Border.all(color: Colors.grey[300])),
-
-                child: Row(
-                  children: <Widget>[
-                    GestureDetector(
-                      onTap: (){
-                        authManager.signInAnonymously();
-                        databaseManager.addUserToIdle();
-                      },
-                      child: Container(
-
+                child: GestureDetector(
+                  onTap: () {
+                    authManager.signInAnonymously();
+                    databaseManager.addUserToIdle();
+                    Navigator.pushNamed(context, ChooseScreen.id);
+                  },
+                  child: Row(
+                    children: <Widget>[
+                      Container(
                         decoration: BoxDecoration(
+                          //color: Color(0xffFFA6A6),
                           color: Color(0xffe67096),
                           borderRadius: BorderRadius.circular(20),
                         ),
                         child: Image(
                           image: AssetImage('images/dice2.png'),
-                          height: 70,
+                          height: displayHeight(context) * 0.095,
+                          //height: 70,
                         ),
                       ),
-                    ),
-
-
-                    SizedBox(
-                      width: 10,
-                    ),
-
-
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        Text(
-                          'Random Chat',
-                          style: TextStyle(
-                            fontSize: 25,
-                            fontWeight: FontWeight.bold,
+                      SizedBox(
+                        width: displayWidth(context) * 0.055,
+                      ),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+                          Text(
+                            'Random Chat',
+                            style: TextStyle(
+                              fontSize: displayWidth(context) * 0.07,
+                              // fontSize: 25,
+                              fontWeight: FontWeight.bold,
+                            ),
                           ),
-                        ),
-                        SizedBox(
-                          height: 10,
-                        ),
-                        Text('will connect you with a \nrandom person to talk with',style:
-                        TextStyle(fontStyle: FontStyle.italic),)
-                      ],
-                    )
-                  ],
+                          SizedBox(
+                            height: displayHeight(context) * 0.006,
+                          ),
+                          Text(
+                            'will connect with a random\nperson to talk with',
+                            style: TextStyle(
+                                fontStyle: FontStyle.italic,
+                                fontSize: displayWidth(context) * 0.035),
+                          )
+                        ],
+                      )
+                    ],
+                  ),
                 ),
               ),
-              SizedBox(height: 35,),
-
+              SizedBox(
+                height: displayHeight(context) * 0.0475,
+                // height: 35,
+              ),
               Container(
-                padding: EdgeInsets.all(23),
+                padding: EdgeInsets.all(20),
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(30),
                     border: Border.all(color: Colors.grey[300])),
-
-                child: Row(
-                  children: <Widget>[
-                    GestureDetector(
-                      onTap: (){},
-                      child: Container(
-
+                child: GestureDetector(
+                  onTap: () {
+                    Navigator.pushNamed(context, TherapistScreen.id);
+                  },
+                  child: Row(
+                    children: <Widget>[
+                      Container(
                         decoration: BoxDecoration(
                           color: Color(0xffFFC61B),
                           borderRadius: BorderRadius.circular(20),
                         ),
                         child: Image(
                           image: AssetImage('images/therapist.png'),
-                          height: 70,
+                          height: displayHeight(context) * 0.095,
+                          // height: 70,
                         ),
                       ),
-                    ),
-
-
-                    SizedBox(
-                      width: 10,
-                    ),
-
-
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        Text(
-                          'Therapist',
-                          style: TextStyle(
-                            fontSize: 25,
-                            fontWeight: FontWeight.bold,
+                      SizedBox(
+                        width: displayWidth(context) * 0.055,
+                        //width: 20,
+                      ),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+                          Text(
+                            'Therapist',
+                            style: TextStyle(
+                              fontSize: displayWidth(context) * 0.07,
+                              //fontSize: 25,
+                              fontWeight: FontWeight.bold,
+                            ),
                           ),
-                        ),
-                        SizedBox(
-                          height: 5,
-                        ),
-                        Text('connect with a professional\ntherapist to talk with\nnonymously',style:
-                        TextStyle(fontStyle: FontStyle.italic,
-                        fontSize: 13))
-                      ],
-                    )
-                  ],
+                          SizedBox(
+                            height: displayHeight(context) * 0.006,
+                          ),
+                          Text(
+                            'connect with a professional\ntherapist to talk with\nanonymously',
+                            style: TextStyle(
+                              fontStyle: FontStyle.italic,
+                              //fontSize: 13
+                              fontSize: displayWidth(context) * 0.035,
+                            ),
+                          )
+                        ],
+                      )
+                    ],
+                  ),
                 ),
               )
             ],

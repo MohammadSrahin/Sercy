@@ -42,6 +42,16 @@ class _ChatScreenState extends State<ChatScreen> {
           "Chat",
           style: TextStyle(color: Colors.black),
         ),
+
+        //AppBar Color
+        flexibleSpace: Container(
+          decoration: BoxDecoration(
+              gradient: LinearGradient(
+                  begin: Alignment.topLeft,
+                  end: Alignment.bottomRight,
+                  colors: <Color>[Color(0xff862992), Color(0xffEE3A56)])),
+        ),
+
         centerTitle: true,
         backgroundColor: Colors.white,
         elevation: 0,
@@ -51,7 +61,9 @@ class _ChatScreenState extends State<ChatScreen> {
               color: Colors.black,
               size: 20,
             ),
-            onPressed: () {}),
+            onPressed: () {
+              Navigator.pop(context);
+            }),
       ),
       body: Container(
         margin: EdgeInsets.all(20),

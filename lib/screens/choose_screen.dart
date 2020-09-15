@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:sercy/backend/auth.dart';
 import 'chat_screen.dart';
 import '../backend/database.dart';
+import 'sizes_helpers.dart';
 
 class ChooseScreen extends StatefulWidget {
   static const id = 'choose_screen';
@@ -18,18 +19,25 @@ class _ChooseScreenState extends State<ChooseScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        margin: EdgeInsets.symmetric(horizontal: 10, vertical: 40),
+        margin: EdgeInsets.symmetric(horizontal: 24, vertical: 40),
         padding: EdgeInsets.symmetric(horizontal: 10, vertical: 40),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Expanded(
-              child: Image(
-               image: AssetImage('images/tlogo6.png'),
+            Hero(
+              tag: 'logo',
+              child: Container(
+                child: Center(
+                  child: Image(
+                    image: AssetImage('images/tlogo6.png'),
+                    //height: 200,
+                    height: displayHeight(context) * 0.28,
+                  ),
+                ),
               ),
             ),
             SizedBox(
-              height: 10,
+              height: 45,
             ),
             GestureDetector(
               onTap: () {
@@ -40,29 +48,44 @@ class _ChooseScreenState extends State<ChooseScreen> {
               child: Container(
                 padding: EdgeInsets.all(20),
                 decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(20),
+                    borderRadius: BorderRadius.circular(30),
                     border: Border.all(color: Colors.grey[300])),
                 child: Row(
                   children: [
-                    CircleAvatar(
-                      radius: 30.0,
-                      backgroundImage: NetworkImage(
-                          'https://www.iconfinder.com/data/icons/occupation-and-people-avatar-vol-1-1/128/Woman_avatar_assistant_young_people_female_therapist-512.png'),
-                      backgroundColor: Colors.transparent,
+                    Container(
+                      decoration: BoxDecoration(
+                        color: Color(0xffe67096),
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                      child: Image(
+                        image: AssetImage('images/ear.png'),
+                        height: displayHeight(context) * 0.095,
+                      ),
                     ),
                     SizedBox(
-                      width: 20,
+                      width: displayWidth(context) * 0.055,
+                      //width: 20,
                     ),
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          "Listener",
+                          "Listener / Counselor",
                           softWrap: true,
                           style: TextStyle(
-                              fontSize: 20, fontWeight: FontWeight.bold),
+                              // fontSize: 25,
+                              fontSize: displayWidth(context) * 0.05,
+                              fontWeight: FontWeight.bold),
                         ),
-                        Text("Listen")
+                        SizedBox(
+                          height: displayHeight(context) * 0.006,
+                        ),
+                        Text(
+                          "Who wants to listen and\ngive advice to other people",
+                          style: TextStyle(
+                              fontStyle: FontStyle.italic,
+                              fontSize: displayWidth(context) * 0.035),
+                        )
                       ],
                     ),
                   ],
@@ -70,7 +93,7 @@ class _ChooseScreenState extends State<ChooseScreen> {
               ),
             ),
             SizedBox(
-              height: 20,
+              height: displayHeight(context) * 0.0475,
             ),
             GestureDetector(
               onTap: () {
@@ -81,18 +104,23 @@ class _ChooseScreenState extends State<ChooseScreen> {
               child: Container(
                 padding: EdgeInsets.all(20),
                 decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(20),
+                    borderRadius: BorderRadius.circular(30),
                     border: Border.all(color: Colors.grey[300])),
                 child: Row(
                   children: [
-                    CircleAvatar(
-                      radius: 30.0,
-                      backgroundImage: NetworkImage(
-                          'https://www.iconfinder.com/data/icons/occupation-and-people-avatar-vol-1-1/128/Woman_avatar_assistant_young_people_female_therapist-512.png'),
-                      backgroundColor: Colors.transparent,
+                    Container(
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                      child: Image(
+                        image: AssetImage('images/vent.png'),
+                        height: displayHeight(context) * 0.095,
+                      ),
                     ),
                     SizedBox(
-                      width: 20,
+                      width: displayWidth(context) * 0.055,
+                      //width: 20,
                     ),
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -101,9 +129,18 @@ class _ChooseScreenState extends State<ChooseScreen> {
                           "Venter",
                           softWrap: true,
                           style: TextStyle(
-                              fontSize: 20, fontWeight: FontWeight.bold),
+                              fontSize: displayWidth(context) * 0.07,
+                              fontWeight: FontWeight.bold),
                         ),
-                        Text("Vent")
+                        SizedBox(
+                          height: displayHeight(context) * 0.006,
+                        ),
+                        Text(
+                          "Who wants to listen and\ngive advice to other people",
+                          style: TextStyle(
+                              fontStyle: FontStyle.italic,
+                              fontSize: displayWidth(context) * 0.035),
+                        )
                       ],
                     ),
                   ],

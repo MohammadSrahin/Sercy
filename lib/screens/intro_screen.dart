@@ -4,6 +4,7 @@ import 'package:intro_slider/slide_object.dart';
 import 'package:sercy/screens/chat_screen.dart';
 import 'package:sercy/screens/welcome_screen.dart';
 import '../backend/auth.dart';
+import 'sizes_helpers.dart';
 
 class IntroScreen extends StatefulWidget {
   static const id = 'slide_screen';
@@ -21,11 +22,17 @@ class _IntroScreenState extends State<IntroScreen> {
 
     slides.add(
       new Slide(
-        title: "Welcome to Sercy",
-        styleTitle: TextStyle(color: Color(0xff0078D7),
-
+        title: "Sercy",
+        styleTitle: TextStyle(
+          fontSize: 50,
+          fontWeight: FontWeight.w600,
+          //color: Colors.red[500],
+          color: Color(0xFFE4644C),
+          fontFamily: 'Raleway',
+          letterSpacing: 5,
         ),
-        description: "Description",
+        description:
+            "Sercy is an online \"talking therapy\" app where people can safely explore their difficulties with a view to bringing about changes for better.",
         pathImage: 'images/tlogo6.png',
         colorBegin: Color(0xffEFEFEF),
         colorEnd: Color(0xff802892),
