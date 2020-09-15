@@ -1,8 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:sercy/backend/auth.dart';
+import 'package:sercy/screens/choose_screen.dart';
+import 'package:sercy/system_message_layout.dart';
 import '../backend/database.dart';
 import '../message_layout.dart';
+import 'package:platform_alert_dialog/platform_alert_dialog.dart';
 
 class ChatScreen extends StatefulWidget {
   ChatScreen(this.chatRoom);
@@ -18,6 +21,7 @@ class _ChatScreenState extends State<ChatScreen> {
   final AuthManager authManager = AuthManager();
   TextEditingController controller = TextEditingController();
   var messageText;
+  bool isConnected = true;
 
   setUp() async {
     print("ChatScreen ChatRoom: " + widget.chatRoom.toString());
@@ -47,6 +51,7 @@ class _ChatScreenState extends State<ChatScreen> {
   void initState() {
     super.initState();
     setUp();
+    isConnected = true;
   }
 
   @override
@@ -78,7 +83,43 @@ class _ChatScreenState extends State<ChatScreen> {
               size: 20,
             ),
             onPressed: () {
-              Navigator.pop(context);
+              showDialog<void>(
+                context: context,
+                builder: (BuildContext context) {
+                  return PlatformAlertDialog(
+                    title: Text('Leave Chat?'),
+                    content: SingleChildScrollView(
+                      child: ListBody(
+                        children: <Widget>[
+                          Text(
+                              'You are about to leave the chat, are you sure?'),
+                        ],
+                      ),
+                    ),
+                    actions: <Widget>[
+                      PlatformDialogAction(
+                        child: Text('Cancel'),
+                        actionType: ActionType.Preferred,
+                        onPressed: () {
+                          Navigator.of(context).pop();
+                        },
+                      ),
+                      PlatformDialogAction(
+                        child: Text('Proceed'),
+                        onPressed: () {
+                          setState(() {
+                            isConnected = false;
+                          });
+                          //databaseManager.sendDisconnectedMessage(widget.chatRoom);
+                          databaseManager.removeUserFromActive();
+                          databaseManager.addUserToIdle();
+                          Navigator.popAndPushNamed(context, ChooseScreen.id);
+                        },
+                      ),
+                    ],
+                  );
+                },
+              );
             }),
       ),
       body: Container(
@@ -103,7 +144,7 @@ class _ChatScreenState extends State<ChatScreen> {
                     );
                   }
                   final messages = snapshot.data.docs;
-                  List<MessageBubble> messageWidgets = [];
+                  List<Widget> messageWidgets = [];
                   for (var message in messages) {
                     final messageText = message.data()["text"];
                     final messageSender = message.data()["user"];

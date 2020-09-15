@@ -20,9 +20,9 @@ class _IntroScreenState extends State<IntroScreen> {
 
     slides.add(
       new Slide(
-        title: "Sercy",
+        title: "Welcome to Sercy",
         styleTitle: TextStyle(
-          fontSize: 50,
+          fontSize: 30,
           fontWeight: FontWeight.w600,
           //color: Colors.red[500],
           color: Color(0xFFE4644C),
@@ -30,7 +30,25 @@ class _IntroScreenState extends State<IntroScreen> {
           letterSpacing: 5,
         ),
         description:
-            "Sercy is an online \"talking therapy\" app where people can safely explore their difficulties with a view to bringing about changes for better.",
+            "Sercy is an online \"talking therapy\" app where people can safely explore their difficulties with other people safely.",
+        pathImage: 'images/tlogo6.png',
+        colorBegin: Color(0xffEFEFEF),
+        colorEnd: Color(0xff802892),
+      ),
+    );
+    slides.add(
+      new Slide(
+        title: "Welcome to Sercy",
+        styleTitle: TextStyle(
+          fontSize: 30,
+          fontWeight: FontWeight.w600,
+          //color: Colors.red[500],
+          color: Color(0xFFE4644C),
+          fontFamily: 'Raleway',
+          letterSpacing: 5,
+        ),
+        description:
+            "Sercy is an online \"talking therapy\" app where people can safely explore their difficulties with other people safely.",
         pathImage: 'images/tlogo6.png',
         colorBegin: Color(0xffEFEFEF),
         colorEnd: Color(0xff802892),

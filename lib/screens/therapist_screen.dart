@@ -150,7 +150,8 @@ class TherapistScreen extends StatelessWidget {
                 style: new TextStyle(color: Colors.blue),
                 recognizer: TapGestureRecognizer()
                   ..onTap = () {
-                    launch('https://www.amazonteckathon.com/');
+                    launch(
+                        'https://docs.google.com/forms/d/1ngMFZkXB4sIc-mrRGm9zCrwj5M6eT6AKufm0FTV6K2s/edit');
                   },
               )
             ]))

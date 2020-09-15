@@ -51,6 +51,10 @@ class DatabaseManager {
     return id;
   }
 
+  deleteAChatRoom(String chatRoomID) async {
+    await _firestore.collection('Chatrooms').doc(chatRoomID).delete();
+  }
+
   ///These functions add the current user to their respective group.
   addUserToListener() async {
     await _firestore
@@ -107,6 +111,28 @@ class DatabaseManager {
         .collection('idle_users')
         .doc(authManager.getUID())
         .delete();
+  }
+
+  sendDisconnectedMessage(String chatRoom) async {
+    Map<String, String> systemMessage = {
+      'text': 'The person you were talking to disconnected.',
+      'user': 'System',
+    };
+    await _firestore
+        .collection('Chatrooms')
+        .doc(chatRoom)
+        .collection('messages')
+        .doc('System Message')
+        .set(systemMessage);
+  }
+
+  getSystemMessage(String chatRoom) async {
+    return await _firestore
+        .collection('Chatrooms')
+        .doc(chatRoom)
+        .collection('messages')
+        .doc('System Message')
+        .get();
   }
 
   getARandomVenter() async {

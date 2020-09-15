@@ -36,7 +36,7 @@ class _WelcomeScreen extends State<WelcomeScreen> {
                     child: Container(
                       child: Image(
                         image: AssetImage('images/tlogo6.png'),
-                        height: 150,
+                        height: displayHeight(context) * 0.2,
                       ),
                     ),
                   ),

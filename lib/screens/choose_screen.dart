@@ -51,7 +51,7 @@ class _ChooseScreenState extends State<ChooseScreen> {
                   children: [
                     Container(
                       decoration: BoxDecoration(
-                        color: Color(0xffe67096),
+                        //color: Color(0xffe67096),
                         borderRadius: BorderRadius.circular(20),
                       ),
                       child: Image(
