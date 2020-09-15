@@ -70,7 +70,7 @@ class _ChatScreenState extends State<ChatScreen> {
       appBar: AppBar(
         title: Text(
           "Chat",
-          style: TextStyle(color: Colors.black),
+          style: TextStyle(color: Colors.white),
         ),
 
         //AppBar Color
@@ -88,7 +88,7 @@ class _ChatScreenState extends State<ChatScreen> {
         leading: IconButton(
             icon: Icon(
               Icons.arrow_back_ios,
-              color: Colors.black,
+              color: Colors.white,
               size: 20,
             ),
             onPressed: () {
