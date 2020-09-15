@@ -106,7 +106,7 @@ class _ChatScreenState extends State<ChatScreen> {
                   List<MessageBubble> messageWidgets = [];
                   for (var message in messages) {
                     final messageText = message.data()["text"];
-                    final messageSender = message.data()["sender"];
+                    final messageSender = message.data()["user"];
 
                     final currentUser = authManager.getUID();
                     final messageWidget = MessageBubble(

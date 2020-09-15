@@ -30,38 +30,33 @@ class _SearchingScreenState extends State<SearchingScreen> {
     // TODO: implement initState
     super.initState();
     chatSetUp();
-    // Navigator.popAndPushNamed(context, ChatScreen.id, arguments: chatRoom);
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: Column(
-          children: [
-            Expanded(
-              child: LoadingBouncingGrid.circle(),
-            ),
-            Expanded(
-              flex: 2,
-              child: Container(
-                child: Text(
-                  "Looking for a pair...",
-                  style: TextStyle(
-                    fontSize: 30,
-                  ),
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          LoadingBouncingGrid.circle(
+            backgroundColor: Colors.purple,
+            size: 100,
+          ),
+          SizedBox(
+            height: 20,
+          ),
+          Container(
+            padding: EdgeInsets.all(20),
+            child: Flexible(
+              child: Text(
+                "Please wait while we connect you with someone",
+                style: TextStyle(
+                  fontSize: 20,
                 ),
               ),
             ),
-            RaisedButton(
-              onPressed: () {
-                Navigator.pushNamed(context, ChatScreen.id,
-                    arguments: chatRoom);
-              },
-              child: Text("Push me to go to chat"),
-            ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

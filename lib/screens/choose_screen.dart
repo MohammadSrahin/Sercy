@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:sercy/backend/auth.dart';
 import 'package:sercy/screens/searching_screen.dart';
-import 'chat_screen.dart';
 import '../backend/database.dart';
 import 'sizes_helpers.dart';
 
@@ -13,8 +11,6 @@ class ChooseScreen extends StatefulWidget {
 
 class _ChooseScreenState extends State<ChooseScreen> {
   final DatabaseManager databaseManager = DatabaseManager();
-  static const id = 'choose_screen';
-  final AuthManager _auth = AuthManager();
 
   @override
   Widget build(BuildContext context) {

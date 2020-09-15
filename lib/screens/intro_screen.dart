@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:intro_slider/intro_slider.dart';
 import 'package:intro_slider/slide_object.dart';
-import 'package:sercy/screens/chat_screen.dart';
 import 'package:sercy/screens/welcome_screen.dart';
 import '../backend/auth.dart';
-import 'sizes_helpers.dart';
 
 class IntroScreen extends StatefulWidget {
   static const id = 'slide_screen';
