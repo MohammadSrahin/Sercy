@@ -110,7 +110,8 @@ class _ChatScreenState extends State<ChatScreen> {
                           setState(() {
                             isConnected = false;
                           });
-                          //databaseManager.sendDisconnectedMessage(widget.chatRoom);
+                          databaseManager
+                              .sendDisconnectedMessage(widget.chatRoom);
                           databaseManager.removeUserFromActive();
                           databaseManager.addUserToIdle();
                           Navigator.popAndPushNamed(context, ChooseScreen.id);
@@ -149,13 +150,23 @@ class _ChatScreenState extends State<ChatScreen> {
                     final messageText = message.data()["text"];
                     final messageSender = message.data()["user"];
 
-                    final currentUser = authManager.getUID();
-                    final messageWidget = MessageBubble(
-                      sender: messageSender,
-                      messageText: messageText,
-                      isMe: currentUser == messageSender,
-                    );
-                    messageWidgets.add(messageWidget);
+                    if (isConnected == false) {
+                      final currentUser = authManager.getUID();
+                      final messageWidget = MessageBubble(
+                        sender: 'System',
+                        messageText: 'Disconnected',
+                        isMe: currentUser == messageSender,
+                      );
+                      messageWidgets.add(messageWidget);
+                    } else {
+                      final currentUser = authManager.getUID();
+                      final messageWidget = MessageBubble(
+                        sender: messageSender,
+                        messageText: messageText,
+                        isMe: currentUser == messageSender,
+                      );
+                      messageWidgets.add(messageWidget);
+                    }
                   }
                   return Expanded(
                     child: ListView(

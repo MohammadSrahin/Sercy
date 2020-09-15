@@ -1,10 +1,12 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:sercy/screens/chat_screen.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'sizes_helpers.dart';
+import '../therapist_widget.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class TherapistScreen extends StatelessWidget {
+  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   static const id = 'therapist_screen';
   @override
   Widget build(BuildContext context) {
@@ -15,136 +17,74 @@ class TherapistScreen extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Expanded(
-              child: Text(
-                "Choose a\nTherapist",
-                style: TextStyle(
-                  fontSize: displayWidth(context)*0.12,
+            Text(
+              "Choose a\nTherapist",
+              style: TextStyle(
+                  fontSize: displayWidth(context) * 0.12,
                   //fontSize: 40,
-                    color: Colors.black,
-                    fontWeight: FontWeight.w600),
-              ),
+                  color: Colors.black,
+                  fontWeight: FontWeight.w600),
             ),
-            SizedBox(
-              height: 10,
-            ),
-            GestureDetector(
-              onTap: () {
-                Navigator.pushNamed(context, ChatScreen.id);
-              },
-              child: Container(
-                padding: EdgeInsets.all(20),
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(20),
-                    border: Border.all(color: Colors.grey[300])),
-                child: Row(
-                  children: [
-                    CircleAvatar(
-                      radius: 30.0,
-                      backgroundImage: NetworkImage(
-                          'https://www.iconfinder.com/data/icons/occupation-and-people-avatar-vol-1-1/128/Woman_avatar_assistant_young_people_female_therapist-512.png'),
-                      backgroundColor: Colors.transparent,
+            StreamBuilder(
+                stream: _firestore.collection('therapist_users').snapshots(),
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return Center(
+                      child: CircularProgressIndicator(),
+                    );
+                  }
+                  final therapists = snapshot.data.docs;
+                  List<Widget> therapistWidgets = [];
+                  for (var therapist in therapists) {
+                    final name = therapist.data()["name"];
+                    final description = therapist.data()["description"];
+                    final cost = therapist.data()["cost"];
+                    final imageLink = therapist.data()['image'];
+                    final therapistWidget = TherapistListTile(
+                      description: description,
+                      name: name,
+                      cost: cost,
+                      profileImage: imageLink,
+                    );
+                    therapistWidgets.add(therapistWidget);
+                  }
+                  return Expanded(
+                    child: ListView(
+                      children: therapistWidgets,
                     ),
-                    SizedBox(
-                      width: 20,
-                    ),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          "Therapist 1",
-                          softWrap: true,
-                          style: TextStyle(
-                              fontSize: 20, fontWeight: FontWeight.bold),
-                        ),
-                        Text("I am a therapist, hello!")
-                      ],
-                    ),
-                  ],
-                ),
-              ),
-            ),
-            SizedBox(
-              height: 20,
-            ),
-            GestureDetector(
-              onTap: () {
-                Navigator.pushNamed(context, ChatScreen.id);
-              },
-              child: Container(
-                padding: EdgeInsets.all(20),
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(20),
-                    border: Border.all(color: Colors.grey[300])),
-                child: Row(
-                  children: [
-                    CircleAvatar(
-                      radius: 30.0,
-                      backgroundImage: NetworkImage(
-                          'https://www.iconfinder.com/data/icons/occupation-and-people-avatar-vol-1-1/128/Woman_avatar_assistant_young_people_female_therapist-512.png'),
-                      backgroundColor: Colors.transparent,
-                    ),
-                    SizedBox(
-                      width: 20,
-                    ),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          "Therapist 2",
-                          softWrap: true,
-                          style: TextStyle(
-                              fontSize: 20, fontWeight: FontWeight.bold),
-                        ),
-                        Text("I am a therapist, hello!")
-                      ],
-                    ),
-                  ],
-                ),
-              ),
-            ),
-            SizedBox(
-              height: 20,
-            ),
-            GestureDetector(
-              onTap: () {
-                Navigator.pushNamed(context, ChatScreen.id);
-              },
-              child: Container(
-                padding: EdgeInsets.all(20),
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(20),
-                    border: Border.all(color: Colors.grey[300])),
-                child: Row(
-                  children: [
-                    CircleAvatar(
-                      radius: 30.0,
-                      backgroundImage: NetworkImage(
-                          'https://www.iconfinder.com/data/icons/occupation-and-people-avatar-vol-1-1/128/Woman_avatar_assistant_young_people_female_therapist-512.png'),
-                      backgroundColor: Colors.transparent,
-                    ),
-                    SizedBox(
-                      width: 20,
-                    ),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          "Therapist 3",
-                          softWrap: true,
-                          style: TextStyle(
-                              fontSize: 20, fontWeight: FontWeight.bold),
-                        ),
-                        Text("I am a therapist, hello!")
-                      ],
-                    ),
-                  ],
-                ),
-              ),
-            ),
-            SizedBox(
-              height: 20,
-            ),
+                  );
+                }),
+
+            // SizedBox(
+            //   height: 10,
+            // ),
+            // TherapistListTile(
+            //   name: 'Therapist 1',
+            //   description: 'Hello!!',
+            //   profileImage: NetworkImage(
+            //       'https://www.iconfinder.com/data/icons/occupation-and-people-avatar-vol-1-1/128/Woman_avatar_assistant_young_people_female_therapist-512.png'),
+            // ),
+            // SizedBox(
+            //   height: 20,
+            // ),
+            // TherapistListTile(
+            //   name: 'Therapist 1',
+            //   description: 'Hello!!',
+            //   profileImage: NetworkImage(
+            //       'https://www.iconfinder.com/data/icons/occupation-and-people-avatar-vol-1-1/128/Woman_avatar_assistant_young_people_female_therapist-512.png'),
+            // ),
+            // SizedBox(
+            //   height: 20,
+            // ),
+            // TherapistListTile(
+            //   name: 'Therapist 1',
+            //   description: 'Hello!!',
+            //   profileImage: NetworkImage(
+            //       'https://www.iconfinder.com/data/icons/occupation-and-people-avatar-vol-1-1/128/Woman_avatar_assistant_young_people_female_therapist-512.png'),
+            // ),
+            // SizedBox(
+            //   height: 20,
+            // ),
             RichText(
                 text: TextSpan(children: [
               TextSpan(
