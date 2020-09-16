@@ -1,4 +1,4 @@
-## Sercy
+# Sercy
 
 Sercy is an app focused on mental health, it lets you speak with strangers anonymously to talk about
 the issues you're currently having and seek advice, and optionally you can also talk with a certified
@@ -16,6 +16,18 @@ You could use these credentials for testing:
 
 * Email: user123@email.com
 * Password: 1234567
+
+## Process of signing up as a therapist:
+
+**Early ideas**
+
+Suggestions would be appreciated.
+
+
+The sign up process goes like this:
+first the therapist has to fill a form, in that form we ask for the CV, certificates and ID, along with some few questions.
+If we see that they're a good fit, we would contact them and arrange an interview, if they pass the interview we would put them on the list.
+
 
 ## If you encounter bugs
 
