@@ -1,5 +1,9 @@
 import 'dart:ui';
 
+import 'package:sercy/screens/chat_screen.dart';
+
+import '../backend/auth.dart';
+import '../backend/database.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -8,9 +12,26 @@ import '../therapist_widget.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 
-class TherapistScreen extends StatelessWidget {
-  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+class TherapistScreen extends StatefulWidget {
   static const id = 'therapist_screen';
+  @override
+  _TherapistScreenState createState() => _TherapistScreenState();
+}
+
+class _TherapistScreenState extends State<TherapistScreen> {
+  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+  final AuthManager authManager = AuthManager();
+  final DatabaseManager databaseManager = DatabaseManager();
+  String password, email;
+  String chatRoom;
+  TextEditingController passController, emailController;
+
+  setUp(String name) async {
+    print("name: " + name);
+    chatRoom = await databaseManager.createATherapistChatRoom(name);
+    print(chatRoom);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -62,11 +83,18 @@ class TherapistScreen extends StatelessWidget {
                                   therapist.data()["description"];
                               final cost = therapist.data()["cost"];
                               final imageLink = therapist.data()['image'];
+                              final email = therapist.data()['email'];
                               final therapistWidget = TherapistListTile(
+                                onTap: () {
+                                  setUp(name);
+                                  Navigator.pushNamed(context, ChatScreen.id,
+                                      arguments: chatRoom);
+                                },
                                 description: description,
                                 name: name,
                                 cost: cost,
                                 profileImage: imageLink,
+                                email: email,
                               );
                               therapistWidgets.add(therapistWidget);
                             }
@@ -100,12 +128,20 @@ class TherapistScreen extends StatelessWidget {
                           content: Column(
                             children: <Widget>[
                               TextField(
+                                onChanged: (value) {
+                                  email = value;
+                                },
+                                controller: emailController,
                                 decoration: InputDecoration(
                                   icon: Icon(Icons.account_circle),
-                                  labelText: 'Username',
+                                  labelText: 'Email',
                                 ),
                               ),
                               TextField(
+                                onChanged: (value) {
+                                  password = value;
+                                },
+                                controller: passController,
                                 obscureText: true,
                                 decoration: InputDecoration(
                                   icon: Icon(Icons.lock),
@@ -116,7 +152,12 @@ class TherapistScreen extends StatelessWidget {
                           ),
                           buttons: [
                             DialogButton(
-                              onPressed: () => Navigator.pop(context),
+                              onPressed: () {
+                                print(chatRoom);
+                                authManager.signInWithEmail(email, password);
+                                Navigator.pushNamed(context, ChatScreen.id,
+                                    arguments: chatRoom);
+                              },
                               child: Text(
                                 "LOGIN",
                                 style: TextStyle(
@@ -203,65 +244,3 @@ class TherapistScreen extends StatelessWidget {
     );
   }
 }
-
-/*Container(
-        margin: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-        padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Container(
-              margin: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-              padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-              child: Text(
-                "Choose a\nTherapist",
-                style: TextStyle(
-                    fontSize: displayWidth(context) * 0.12,
-                    //fontSize: 40,
-                    color: Colors.black,
-                    fontWeight: FontWeight.w600),
-              ),
-            ),
-            StreamBuilder(
-                stream: _firestore.collection('therapist_users').snapshots(),
-                builder: (context, snapshot) {
-                  if (snapshot.connectionState == ConnectionState.waiting) {
-                    return Center(
-                      child: CircularProgressIndicator(),
-                    );
-                  }
-                  final therapists = snapshot.data.docs;
-                  List<Widget> therapistWidgets = [];
-                  for (var therapist in therapists) {
-                    final name = therapist.data()["name"];
-                    final description = therapist.data()["description"];
-                    final cost = therapist.data()["cost"];
-                    final imageLink = therapist.data()['image'];
-                    final therapistWidget = TherapistListTile(
-                      description: description,
-                      name: name,
-                      cost: cost,
-                      profileImage: imageLink,
-                    );
-                    therapistWidgets.add(therapistWidget);
-                  }
-                  return Expanded(
-                    flex: 10,
-                    child: ListView(
-                      children: therapistWidgets,
-                    ),
-                  );
-                }),
-            Expanded(
-              child: RaisedButton(
-                color: Colors.black,
-                onPressed: () {
-
-                },
-                child:Text('Sign in as a therapist',style: TextStyle(color: Colors.white),),
-
-              ),
-            ),
-          ],
-        ),
-      ),*/

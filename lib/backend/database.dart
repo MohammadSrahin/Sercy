@@ -30,6 +30,13 @@ class DatabaseManager {
     return userRole;
   }
 
+  createATherapistChatRoom(String name) async {
+    DocumentSnapshot documentSnapshot =
+        await _firestore.collection('therapist_users').doc(name).get();
+    String email = documentSnapshot.data()['email'];
+    return "${email}_${authManager.getUID()}";
+  }
+
   createAChatRoomID() async {
     var secondUser;
     var userRole = await getUserRole();

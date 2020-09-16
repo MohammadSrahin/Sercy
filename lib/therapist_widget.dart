@@ -4,12 +4,18 @@ import 'package:sercy/screens/sizes_helpers.dart';
 
 class TherapistListTile extends StatelessWidget {
   TherapistListTile(
-      {this.onTap, this.profileImage, this.name, this.description, this.cost});
+      {this.onTap,
+      this.profileImage,
+      this.name,
+      this.description,
+      this.cost,
+      this.email});
   final onTap;
   final String profileImage;
   final String name;
   final String cost;
   final String description;
+  final String email;
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -57,8 +63,9 @@ class TherapistListTile extends StatelessWidget {
             ),
             Text(
               "$cost\$/hr",
-              style: TextStyle(color: Colors.green,
-               fontSize: displayWidth(context)*0.0475,
+              style: TextStyle(
+                color: Colors.green,
+                fontSize: displayWidth(context) * 0.0475,
                 //fontSize: 17,
               ),
             ),
