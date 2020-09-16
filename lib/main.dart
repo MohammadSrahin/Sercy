@@ -8,6 +8,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:sercy/screens/therapist_screen.dart';
 import 'package:flutter/services.dart';
 
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   //Device orientation always up.
@@ -16,11 +17,15 @@ void main() async {
   runApp(MyApp());
 }
 
+
+
 class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
+
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+
       onGenerateRoute: (settings) {
         if (settings.name == ChatScreen.id) {
           return MaterialPageRoute(builder: (context) {
@@ -29,13 +34,15 @@ class MyApp extends StatelessWidget {
         }
         return null;
       },
-      initialRoute: IntroScreen.id,
+
+      initialRoute:IntroScreen.id,
       routes: {
         IntroScreen.id: (context) => IntroScreen(),
         WelcomeScreen.id: (context) => WelcomeScreen(),
         TherapistScreen.id: (context) => TherapistScreen(),
         ChooseScreen.id: (context) => ChooseScreen(),
         SearchingScreen.id: (context) => SearchingScreen(),
+
       },
     );
   }

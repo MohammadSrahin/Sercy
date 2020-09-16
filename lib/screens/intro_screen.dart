@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intro_slider/intro_slider.dart';
 import 'package:intro_slider/slide_object.dart';
+import 'package:sercy/main.dart';
 import 'package:sercy/screens/welcome_screen.dart';
 import '../backend/auth.dart';
 
@@ -11,6 +12,8 @@ class IntroScreen extends StatefulWidget {
 }
 
 class _IntroScreenState extends State<IntroScreen> {
+
+
   List<Slide> slides = new List();
   final AuthManager authManager = AuthManager();
   @override
@@ -80,6 +83,7 @@ class _IntroScreenState extends State<IntroScreen> {
 
   void onDonePress() {
     Navigator.pushNamed(context, WelcomeScreen.id);
+
   }
 
   @override

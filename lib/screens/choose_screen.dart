@@ -90,7 +90,7 @@ class _ChooseScreenState extends State<ChooseScreen> {
                           height: displayHeight(context) * 0.006,
                         ),
                         Text(
-                          "For people who want to listen and\ngive advice to other people",
+                          "For people who want to listen\nand give advice to other people",
                           style: TextStyle(
                               fontStyle: FontStyle.italic,
                               fontSize: displayWidth(context) * 0.035),
