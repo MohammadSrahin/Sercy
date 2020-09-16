@@ -21,8 +21,6 @@ You could use these credentials for testing:
 
 **Early ideas**
 
-Suggestions would be appreciated.
-
 
 The sign up process goes like this:
 first the therapist has to fill a form, in that form we ask for the CV, certificates and ID, along with some few questions.
