@@ -54,7 +54,19 @@ class DatabaseManager {
   }
 
   deleteAChatRoom(String chatRoomID) async {
-    await _firestore.collection('Chatrooms').doc(chatRoomID).delete();
+    try {
+      var querySnapshot = await _firestore
+          .collection('Chatrooms')
+          .doc(chatRoomID)
+          .collection('messages')
+          .get();
+      var messages = querySnapshot.docs;
+      for (var message in messages) {
+        message.data().clear();
+      }
+    } catch (e) {
+      print(e);
+    }
   }
 
   ///These functions add the current user to their respective group.

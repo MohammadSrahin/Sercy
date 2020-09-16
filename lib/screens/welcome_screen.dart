@@ -115,7 +115,7 @@ class _WelcomeScreen extends State<WelcomeScreen> {
                               height: displayHeight(context) * 0.006,
                             ),
                             Text(
-                              'will connect with a random\nperson to talk with',
+                              'Connects you with \na random person',
                               style: TextStyle(
                                   fontStyle: FontStyle.italic,
                                   fontSize: displayWidth(context) * 0.035),
@@ -171,7 +171,7 @@ class _WelcomeScreen extends State<WelcomeScreen> {
                               height: displayHeight(context) * 0.006,
                             ),
                             Text(
-                              'connect with a professional\ntherapist to talk with\nanonymously',
+                              'Connect with a professional\ntherapist to talk with\nanonymously',
                               style: TextStyle(
                                 fontStyle: FontStyle.italic,
                                 //fontSize: 13

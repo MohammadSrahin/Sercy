@@ -20,6 +20,7 @@ class TherapistListTile extends StatelessWidget {
             borderRadius: BorderRadius.circular(20),
             border: Border.all(color: Colors.grey[300])),
         child: Row(
+          crossAxisAlignment: CrossAxisAlignment.end,
           children: [
             CircleAvatar(
               radius: 30.0,
@@ -27,8 +28,8 @@ class TherapistListTile extends StatelessWidget {
               backgroundColor: Colors.transparent,
             ),
             SizedBox(
-             width:displayWidth(context)*0.055,
-             // width: 20,
+              width: displayWidth(context) * 0.055,
+              // width: 20,
             ),
             Expanded(
               child: Column(
@@ -41,11 +42,22 @@ class TherapistListTile extends StatelessWidget {
                         fontSize: displayWidth(context) * 0.0555,
                         fontWeight: FontWeight.bold),
                   ),
-                  SizedBox(height: displayHeight(context) * 0.005,),
-                  Text(description,softWrap: true,style: TextStyle(fontSize: displayWidth(context) * 0.038,
-                 ),),
+                  SizedBox(
+                    height: displayHeight(context) * 0.005,
+                  ),
+                  Text(
+                    description,
+                    softWrap: true,
+                    style: TextStyle(
+                      fontSize: displayWidth(context) * 0.038,
+                    ),
+                  ),
                 ],
               ),
+            ),
+            Text(
+              "$cost\$/hr",
+              style: TextStyle(color: Colors.green, fontSize: 17),
             ),
           ],
         ),

@@ -49,6 +49,7 @@ class _ChooseScreenState extends State<ChooseScreen> {
             ),
             GestureDetector(
               onTap: () {
+                setState(() {});
                 databaseManager.addUserToListener();
                 databaseManager.removeUserFromIdle();
                 Navigator.pushNamed(context, SearchingScreen.id);
@@ -105,6 +106,7 @@ class _ChooseScreenState extends State<ChooseScreen> {
             ),
             GestureDetector(
               onTap: () {
+                setState(() {});
                 databaseManager.addUserToVenter();
                 databaseManager.removeUserFromIdle();
                 Navigator.pushNamed(context, SearchingScreen.id);
