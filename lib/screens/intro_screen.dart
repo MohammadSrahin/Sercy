@@ -12,15 +12,12 @@ class IntroScreen extends StatefulWidget {
 }
 
 class _IntroScreenState extends State<IntroScreen> {
-
-
   List<Slide> slides = new List();
   final AuthManager authManager = AuthManager();
   @override
   void initState() {
     authManager.signInAnonymously();
     super.initState();
-
 
     slides.add(
       new Slide(
@@ -34,8 +31,12 @@ class _IntroScreenState extends State<IntroScreen> {
           letterSpacing: 3,
         ),
         description:
-        "Sercy is an online \"talking therapy\" app where people can safely explore their difficulties with other people in an anonymous way",
-        styleDescription:TextStyle(color: Colors.white, fontSize: 20.0, fontStyle: FontStyle.italic,fontWeight: FontWeight.w400),
+            "Sercy is an online \"talking therapy\" app where people can safely explore their difficulties with other people in an anonymous way",
+        styleDescription: TextStyle(
+            color: Colors.white,
+            fontSize: 20.0,
+            fontStyle: FontStyle.italic,
+            fontWeight: FontWeight.w400),
         pathImage: 'images/tlogo6.png',
         colorBegin: Color(0xffEFEFEF),
         colorEnd: Color(0xff802892),
@@ -52,9 +53,12 @@ class _IntroScreenState extends State<IntroScreen> {
           fontFamily: 'RobotoMono',
           letterSpacing: 3,
         ),
-        description:
-            "Sercy has professional therapist that can advise you",
-        styleDescription:TextStyle(color: Colors.white, fontSize: 20.0, fontStyle: FontStyle.italic,fontWeight: FontWeight.w400),
+        description: "Sercy has professional therapists that can advise you",
+        styleDescription: TextStyle(
+            color: Colors.white,
+            fontSize: 20.0,
+            fontStyle: FontStyle.italic,
+            fontWeight: FontWeight.w400),
         pathImage: 'images/therapist.png',
         colorBegin: Color(0xffEFEFEF),
         colorEnd: Color(0xffD48B07),
@@ -62,7 +66,7 @@ class _IntroScreenState extends State<IntroScreen> {
     );
     slides.add(
       new Slide(
-        title: "Anonymous Chat",
+        title: "Random Chat",
         styleTitle: TextStyle(
           fontSize: 25,
           fontWeight: FontWeight.w800,
@@ -72,8 +76,12 @@ class _IntroScreenState extends State<IntroScreen> {
           letterSpacing: 3,
         ),
         description:
-        "Sercy enables you to communicate with a random person anonymously",
-        styleDescription:TextStyle(color: Colors.white, fontSize: 20.0, fontStyle: FontStyle.italic,fontWeight: FontWeight.w400),
+            "Sercy enables you to communicate with a random person anonymously, without exposing your identity",
+        styleDescription: TextStyle(
+            color: Colors.white,
+            fontSize: 20.0,
+            fontStyle: FontStyle.italic,
+            fontWeight: FontWeight.w400),
         pathImage: 'images/dice.png',
         colorBegin: Color(0xffEFEFEF),
         colorEnd: Color(0xff2899c9),
@@ -83,7 +91,6 @@ class _IntroScreenState extends State<IntroScreen> {
 
   void onDonePress() {
     Navigator.pushNamed(context, WelcomeScreen.id);
-
   }
 
   @override
@@ -94,4 +101,3 @@ class _IntroScreenState extends State<IntroScreen> {
     );
   }
 }
-

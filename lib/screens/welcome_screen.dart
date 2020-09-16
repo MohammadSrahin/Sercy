@@ -104,7 +104,7 @@ class _WelcomeScreen extends State<WelcomeScreen> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
                             Text(
-                              'Anonymous Chat',
+                              'Random Chat',
                               style: TextStyle(
                                 fontSize: displayWidth(context) * 0.055,
                                 // fontSize: 25,
@@ -115,7 +115,7 @@ class _WelcomeScreen extends State<WelcomeScreen> {
                               height: displayHeight(context) * 0.006,
                             ),
                             Text(
-                              'Connects you with \na random person',
+                              'Connects you with\na random person to\nchat with anonymously',
                               style: TextStyle(
                                   fontStyle: FontStyle.italic,
                                   fontSize: displayWidth(context) * 0.035),
