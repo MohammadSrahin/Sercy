@@ -16,8 +16,8 @@ class _SearchingScreenState extends State<SearchingScreen> {
   chatSetUp() async {
     chatRoom = await databaseManager.createAChatRoomID();
     print(chatRoom);
-    if (chatRoom == 'noUsers') {
-      while (chatRoom == 'noUsers') {
+    if (chatRoom == 'noUsers' || chatRoom == null) {
+      while (chatRoom == 'noUsers' || chatRoom == null) {
         chatRoom = await databaseManager.createAChatRoomID();
         print("new chatRoom: $chatRoom");
       }

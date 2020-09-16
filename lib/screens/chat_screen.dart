@@ -49,7 +49,7 @@ class _ChatScreenState extends State<ChatScreen> {
     //Navigator.popAndPushNamed(context, ChatScreen.id);
   }
 
- void disableTextField() async {
+  void disableTextField() async {
     setState(() {
       _enableTextField = false;
     });
@@ -63,177 +63,217 @@ class _ChatScreenState extends State<ChatScreen> {
     _enableTextField = true;
   }
 
+  Future<bool> _onBackButton() {
+    return showDialog(
+        context: context,
+        builder: (context) => PlatformAlertDialog(
+              title: Text('Leave Chat?'),
+              content: SingleChildScrollView(
+                child: ListBody(
+                  children: <Widget>[
+                    Text('You are about to leave the chat, are you sure?'),
+                  ],
+                ),
+              ),
+              actions: <Widget>[
+                PlatformDialogAction(
+                  child: Text('Cancel'),
+                  actionType: ActionType.Preferred,
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                ),
+                PlatformDialogAction(
+                  child: Text('Proceed'),
+                  onPressed: () {
+                    setState(() {
+                      isConnected = false;
+                    });
+                    databaseManager.sendDisconnectedMessage(widget.chatRoom);
+                    databaseManager.removeUserFromActive();
+                    databaseManager.addUserToIdle();
+                    Navigator.popAndPushNamed(context, WelcomeScreen.id);
+                  },
+                ),
+              ],
+            ));
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.white,
-      appBar: AppBar(
-        title: Text(
-          "Chat",
-          style: TextStyle(color: Colors.white),
-        ),
-
-        //AppBar Color
-        flexibleSpace: Container(
-          decoration: BoxDecoration(
-              gradient: LinearGradient(
-                  begin: Alignment.topLeft,
-                  end: Alignment.bottomRight,
-                  colors: <Color>[Color(0xff862992), Color(0xffEE3A56)])),
-        ),
-
-        centerTitle: true,
+    return WillPopScope(
+      onWillPop: _onBackButton,
+      child: Scaffold(
         backgroundColor: Colors.white,
-        elevation: 0,
-        leading: IconButton(
-            icon: Icon(
-              Icons.arrow_back_ios,
-              color: Colors.white,
-              size: 20,
-            ),
-            onPressed: () {
-              showDialog<void>(
-                context: context,
-                builder: (BuildContext context) {
-                  return PlatformAlertDialog(
-                    title: Text('Leave Chat?'),
-                    content: SingleChildScrollView(
-                      child: ListBody(
-                        children: <Widget>[
-                          Text(
-                              'You are about to leave the chat, are you sure?'),
-                        ],
+        appBar: AppBar(
+          title: Text(
+            "Chat",
+            style: TextStyle(color: Colors.white),
+          ),
+
+          //AppBar Color
+          flexibleSpace: Container(
+            decoration: BoxDecoration(
+                gradient: LinearGradient(
+                    begin: Alignment.topLeft,
+                    end: Alignment.bottomRight,
+                    colors: <Color>[Color(0xff862992), Color(0xffEE3A56)])),
+          ),
+
+          centerTitle: true,
+          backgroundColor: Colors.white,
+          elevation: 0,
+          leading: IconButton(
+              icon: Icon(
+                Icons.arrow_back_ios,
+                color: Colors.white,
+                size: 20,
+              ),
+              onPressed: () {
+                showDialog<void>(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return PlatformAlertDialog(
+                      title: Text('Leave Chat?'),
+                      content: SingleChildScrollView(
+                        child: ListBody(
+                          children: <Widget>[
+                            Text(
+                                'You are about to leave the chat, are you sure?'),
+                          ],
+                        ),
                       ),
-                    ),
-                    actions: <Widget>[
-                      PlatformDialogAction(
-                        child: Text('Cancel'),
-                        actionType: ActionType.Preferred,
-                        onPressed: () {
-                          Navigator.of(context).pop();
-                        },
-                      ),
-                      PlatformDialogAction(
-                        child: Text('Proceed'),
-                        onPressed: () {
-                          setState(() {
-                            isConnected = false;
-                          });
-                          databaseManager
-                              .sendDisconnectedMessage(widget.chatRoom);
-                          databaseManager.removeUserFromActive();
-                          databaseManager.addUserToIdle();
-                          Navigator.popAndPushNamed(context, WelcomeScreen.id);
-                        },
-                      ),
-                    ],
-                  );
-                },
-              );
-            }),
-      ),
-      body: Container(
-        margin: EdgeInsets.all(20),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.end,
-          children: [
-            StreamBuilder<QuerySnapshot>(
-                stream: _firestore
-                    .collection('Chatrooms')
-                    .doc("${widget.chatRoom}")
-                    .collection('messages')
-                    .orderBy(
-                      'timestamp',
-                      descending: true,
-                    )
-                    .snapshots(),
-                builder: (context, snapshot) {
-                  if (snapshot.connectionState == ConnectionState.waiting) {
-                    return Center(
-                      child: CircularProgressIndicator(),
+                      actions: <Widget>[
+                        PlatformDialogAction(
+                          child: Text('Cancel'),
+                          actionType: ActionType.Preferred,
+                          onPressed: () {
+                            Navigator.of(context).pop();
+                          },
+                        ),
+                        PlatformDialogAction(
+                          child: Text('Proceed'),
+                          onPressed: () {
+                            setState(() {
+                              isConnected = false;
+                            });
+                            databaseManager
+                                .sendDisconnectedMessage(widget.chatRoom);
+                            databaseManager.removeUserFromActive();
+                            databaseManager.addUserToIdle();
+                            Navigator.popAndPushNamed(
+                                context, WelcomeScreen.id);
+                          },
+                        ),
+                      ],
                     );
-                  }
-                  final messages = snapshot.data.docs;
-                  List<Widget> messageWidgets = [];
-                  for (var message in messages) {
-                    final messageText = message.data()["text"];
-                    final messageSender = message.data()["user"];
-
-                    if (messageSender == 'System') {
-                      disableTextField();
-                      var systemMessage = SystemMessageBubble(
-                        sender: messageSender,
-                        messageText: messageText,
+                  },
+                );
+              }),
+        ),
+        body: Container(
+          margin: EdgeInsets.all(20),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.end,
+            children: [
+              StreamBuilder<QuerySnapshot>(
+                  stream: _firestore
+                      .collection('Chatrooms')
+                      .doc("${widget.chatRoom}")
+                      .collection('messages')
+                      .orderBy(
+                        'timestamp',
+                        descending: true,
+                      )
+                      .snapshots(),
+                  builder: (context, snapshot) {
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      return Center(
+                        child: CircularProgressIndicator(),
                       );
-                      messageWidgets.add(systemMessage);
-                    } else {
-                      final currentUser = authManager.getUID();
-                      final messageWidget = MessageBubble(
-                        sender: messageSender,
-                        messageText: messageText,
-                        isMe: currentUser == messageSender,
-                      );
-                      messageWidgets.add(messageWidget);
                     }
-                  }
+                    final messages = snapshot.data.docs;
+                    List<Widget> messageWidgets = [];
+                    for (var message in messages) {
+                      final messageText = message.data()["text"];
+                      final messageSender = message.data()["user"];
 
-                  return Expanded(
-                    child: ListView(
-                      reverse: true,
-                      children: messageWidgets,
-                    ),
-                  );
-                }),
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Expanded(
-                  child: Theme(
-                    data: ThemeData(
-                        primaryColor: Colors.black87,
-                        primaryColorDark: Colors.black87,
-                        hintColor: Colors.black87),
-                    child: TextField(
-                      enabled: _enableTextField,
-                      onChanged: (value) {
-                        messageText = value;
-                      },
-                      controller: controller,
-                      decoration: InputDecoration(
-                        hintText: "Type a message...",
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(30),
+                      if (messageSender == 'System') {
+                        disableTextField();
+                        var systemMessage = SystemMessageBubble(
+                          sender: messageSender,
+                          messageText: messageText,
+                        );
+                        messageWidgets.add(systemMessage);
+                      } else {
+                        final currentUser = authManager.getUID();
+                        final messageWidget = MessageBubble(
+                          sender: messageSender,
+                          messageText: messageText,
+                          isMe: currentUser == messageSender,
+                        );
+                        messageWidgets.add(messageWidget);
+                      }
+                    }
+
+                    return Expanded(
+                      child: ListView(
+                        reverse: true,
+                        children: messageWidgets,
+                      ),
+                    );
+                  }),
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Expanded(
+                    child: Theme(
+                      data: ThemeData(
+                          primaryColor: Colors.black87,
+                          primaryColorDark: Colors.black87,
+                          hintColor: Colors.black87),
+                      child: TextField(
+                        enabled: _enableTextField,
+                        onChanged: (value) {
+                          messageText = value;
+                        },
+                        controller: controller,
+                        decoration: InputDecoration(
+                          hintText: "Type a message...",
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(30),
+                          ),
                         ),
                       ),
                     ),
                   ),
-                ),
-                SizedBox(
-                  width: 10,
-                ),
-                GestureDetector(
-                  child: Icon(
-                    Icons.send,
+                  SizedBox(
+                    width: 10,
                   ),
-                  onTap: () {
-                    if (controller.value.text != '') {
-                      print(controller.value.text);
-                      controller.clear();
-                      _firestore
-                          .collection('Chatrooms')
-                          .doc('${widget.chatRoom}')
-                          .collection('messages')
-                          .add({
-                        'user': authManager.getUID(),
-                        'text': messageText,
-                        'timestamp': Timestamp.now(),
-                      });
-                    }
-                  },
-                ),
-              ],
-            )
-          ],
+                  GestureDetector(
+                    child: Icon(
+                      Icons.send,
+                    ),
+                    onTap: () {
+                      if (controller.value.text != '') {
+                        print(controller.value.text);
+                        controller.clear();
+                        _firestore
+                            .collection('Chatrooms')
+                            .doc('${widget.chatRoom}')
+                            .collection('messages')
+                            .add({
+                          'user': authManager.getUID(),
+                          'text': messageText,
+                          'timestamp': Timestamp.now(),
+                        });
+                      }
+                    },
+                  ),
+                ],
+              )
+            ],
+          ),
         ),
       ),
     );

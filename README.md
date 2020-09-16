@@ -1,16 +1,8 @@
-# sercy
+## Sercy
 
-A new Flutter application.
+Sercy is an app focused on mental health, it lets you speak with strangers anonymously to talk about
+the issues you're currently having and seek advice, and optionally you can also talk with a certified
+therapist with a small fee.
 
-## Getting Started
+## Installation
 
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.

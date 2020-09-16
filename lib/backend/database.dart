@@ -42,10 +42,12 @@ class DatabaseManager {
 
     if (userRole == 'listener') {
       secondUser = await getARandomVenter();
-      id = "${authManager.getUID()}_$secondUser";
+      if (secondUser != authManager.getUID())
+        id = "${authManager.getUID()}_$secondUser";
     } else if (userRole == 'venter') {
       secondUser = await getARandomListener();
-      id = "${secondUser}_${authManager.getUID()}";
+      if (secondUser != authManager.getUID())
+        id = "${secondUser}_${authManager.getUID()}";
     }
     if (secondUser == null) id = 'noUsers';
     return id;

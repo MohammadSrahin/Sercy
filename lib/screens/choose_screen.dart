@@ -13,10 +13,14 @@ class _ChooseScreenState extends State<ChooseScreen> {
   final DatabaseManager databaseManager = DatabaseManager();
 
   clearRoles() async {
-    String role = await databaseManager.getUserRole();
-    role == 'listener'
-        ? await databaseManager.removeUserFromListener()
-        : await databaseManager.removeUserFromVenter();
+    await databaseManager.removeUserFromListener();
+    await databaseManager.removeUserFromVenter();
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    clearRoles();
   }
 
   @override
@@ -85,7 +89,7 @@ class _ChooseScreenState extends State<ChooseScreen> {
                           height: displayHeight(context) * 0.006,
                         ),
                         Text(
-                          "Who wants to listen and\ngive advice to other people",
+                          "For people who want to listen and\ngive advice to other people",
                           style: TextStyle(
                               fontStyle: FontStyle.italic,
                               fontSize: displayWidth(context) * 0.035),
@@ -114,11 +118,10 @@ class _ChooseScreenState extends State<ChooseScreen> {
                   children: [
                     Container(
                       decoration: BoxDecoration(
-                        color: Colors.white,
                         borderRadius: BorderRadius.circular(20),
                       ),
                       child: Image(
-                        image: AssetImage('images/vent.png'),
+                        image: AssetImage('images/bluevent.png'),
                         height: displayHeight(context) * 0.095,
                       ),
                     ),
@@ -140,7 +143,7 @@ class _ChooseScreenState extends State<ChooseScreen> {
                           height: displayHeight(context) * 0.006,
                         ),
                         Text(
-                          "Who wants to listen and\ngive advice to other people",
+                          "Talk about your problems\nand get advice from \nother people",
                           style: TextStyle(
                               fontStyle: FontStyle.italic,
                               fontSize: displayWidth(context) * 0.035),
