@@ -20,7 +20,7 @@ class TherapistListTile extends StatelessWidget {
             borderRadius: BorderRadius.circular(20),
             border: Border.all(color: Colors.grey[300])),
         child: Row(
-          crossAxisAlignment: CrossAxisAlignment.end,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             CircleAvatar(
               radius: 30.0,
@@ -57,7 +57,10 @@ class TherapistListTile extends StatelessWidget {
             ),
             Text(
               "$cost\$/hr",
-              style: TextStyle(color: Colors.green, fontSize: 17),
+              style: TextStyle(color: Colors.green,
+               fontSize: displayWidth(context)*0.0475,
+                //fontSize: 17,
+              ),
             ),
           ],
         ),

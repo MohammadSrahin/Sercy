@@ -37,7 +37,7 @@ dependencies:
   loading_animations: ^2.1.0
   platform_alert_dialog: ^1.0.0+2
   shared_preferences: ^0.5.10
-
+  rflutter_alert: ^1.1.0
 dev_dependencies:
   flutter_test:
     sdk: flutter
